@@ -32,7 +32,9 @@ class UpdateProjectRequest extends FormRequest
             'link' => 'required|max:255|url',
             'image' => 'required|max:50',
             'project_date' => 'required|date',
-            'type_id' => 'nullable|exists:types,id'
+            'type_id' =>
+            'nullable|exists:types,id',
+            'technologies' => 'exists:technologies,id'
         ];
     }
     public function messages()
@@ -51,7 +53,8 @@ class UpdateProjectRequest extends FormRequest
             'image.max' => "Puoi inserire massimo 50 caratteri per l'immagine.",
             'project_date.required' => 'La data è richiesta.',
             'project_date.date' => 'Il dato inserito deve essere di tipo DATE.',
-            'type_id.exists' => 'Il valore selezionato non è valido'
+            'type_id.exists' => 'Il valore selezionato non è valido',
+            'technologies.exist' => 'Il valore selezionato non è esiste'
         ];
     }
 }
