@@ -11,6 +11,7 @@
                 <th scope="col">Immagine</th>
                 <th scope="col">Data</th>
                 <th scope="col">Tipologia</th>
+                <th scope="col">Tecnologie</th>
                 <th scope="col">Azioni</th>
             </tr>
         </thead>
@@ -24,6 +25,11 @@
                     <td>{{ $project->image }}</td>
                     <td>{{ $project->project_date }}</td>
                     <td>{{ $project->type ? $project->type->name : 'Nessuna tipologia' }}</td>
+                    <td>
+                        @foreach ($project->technologies as $technology)
+                            <span class="badge rounded-pill text-bg-info">{{ $technology->name }}</span>
+                        @endforeach
+                    </td>
                     <td>
                         <a class="btn btn-primary" href="{{ route('admin.projects.show', $project->slug) }}">Vista</a>
                     </td>
