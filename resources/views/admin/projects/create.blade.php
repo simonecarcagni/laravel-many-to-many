@@ -13,7 +13,7 @@
             </ul>
         </div>
     @endif
-    <form method="POST" action="{{ route('admin.projects.store') }}">
+    <form method="POST" action="{{ route('admin.projects.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Titolo</label>
@@ -49,8 +49,7 @@
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Immagine</label>
-            <input type="text" class="form-control @error('image') is-Invalid @enderror" id="image" name="image"
-                value="{{ old('image') }}">
+            <input type="file" class="form-control @error('image') is-Invalid @enderror" id="image" name="image">
             @error('image')
                 <div class="invalid-feedback">
                     {{ $message }}

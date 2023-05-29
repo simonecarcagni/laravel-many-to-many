@@ -10,7 +10,7 @@
     @endif
     <h1>{{ $project->title }}</h1>
     @if ($project->image)
-        <img src="{{ $project->image }}" alt="{{ $project->title }}">
+        <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}">
     @endif
     <p>{{ $project->description }}</p>
     <h5>Tipologia: {{ $project->type ? $project->type->name : 'Nessuna tipologia esistente' }}</h5>

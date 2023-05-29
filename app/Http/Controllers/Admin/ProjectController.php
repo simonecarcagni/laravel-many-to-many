@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use App\Models\Technology;
 use App\Models\Type;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProjectController extends Controller
@@ -50,6 +51,11 @@ class ProjectController extends Controller
         $checkPost = Project::where('slug', $form_data['slug'])->first();
         if ($checkPost) {
             return back()->withInput()->withErrors(['slug' => 'Impossibile creare lo slug per questo progetto, cambia il titolo']);
+        }
+
+        if ($request->hasFile('image')) {
+            $path = Storage::put('cover', $request->image);
+            $form_data['image'] = $path;
         }
 
         $newProject = Project::create($form_data);
@@ -104,6 +110,17 @@ class ProjectController extends Controller
             return back()->withInput()->withErrors(['slug' => 'Impossibile creare lo slug']);
         }
 
+        if ($request->hasFile('image')) {
+
+            if ($project->image) {
+                Storage::delete($project->image);
+            }
+
+
+            $path = Storage::put('cover', $request->image);
+            $form_data['image'] = $path;
+        }
+
         $project->technologies()->sync($request->technologies);
 
         $project->update($form_data);
@@ -118,6 +135,11 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+
+        if ($project->image) {
+            Storage::delete($project->image);
+        }
+
         $project->delete();
 
         return  redirect()->route('admin.projects.index');

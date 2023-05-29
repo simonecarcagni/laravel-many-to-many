@@ -22,7 +22,11 @@
                     <td>{{ $project->title }}</td>
                     <td>{{ $project->slug }}</td>
                     <th>{{ $project->link }}</th>
-                    <td>{{ $project->image }}</td>
+                    <td>
+                        @if ($project->image)
+                            <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}">
+                        @endif
+                    </td>
                     <td>{{ $project->project_date }}</td>
                     <td>{{ $project->type ? $project->type->name : 'Nessuna tipologia' }}</td>
                     <td>

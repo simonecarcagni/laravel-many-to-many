@@ -13,7 +13,8 @@
             </ul>
         </div>
     @endif
-    <form method="POST" action="{{ route('admin.projects.update', ['project' => $project->slug]) }}">
+    <form method="POST" action="{{ route('admin.projects.update', ['project' => $project->slug]) }}"
+        enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -50,8 +51,10 @@
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Immagine</label>
-            <input type="text" class="form-control @error('image') is-Invalid @enderror" id="image" name="image"
-                value="{{ old('image', $project->image) }}">
+            @if ($project->image)
+                <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}">
+            @endif
+            <input type="file" class="form-control @error('image') is-Invalid @enderror" id="image" name="image">
             @error('image')
                 <div class="invalid-feedback">
                     {{ $message }}

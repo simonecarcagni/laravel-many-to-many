@@ -30,7 +30,7 @@ class UpdateProjectRequest extends FormRequest
             ],
             'description' => 'required|max:5000',
             'link' => 'required|max:255|url',
-            'image' => 'required|max:50',
+            'image' => 'required|max:1024|image',
             'project_date' => 'required|date',
             'type_id' =>
             'nullable|exists:types,id',
@@ -50,7 +50,8 @@ class UpdateProjectRequest extends FormRequest
             'link.max' => 'Puoi inserire massimo 255 caratteri per il campo URL.',
             'link.url' => 'Il dato inserito deve essere di tipo URL.',
             'image.required' => "L'immagine è richiesta.",
-            'image.max' => "Puoi inserire massimo 50 caratteri per l'immagine.",
+            'image.max' => "Puoi inserire massimo 1024 kilobyte per l'immagine.",
+            'image.image' => "Il file selezionato deve essere di tipo immagine.",
             'project_date.required' => 'La data è richiesta.',
             'project_date.date' => 'Il dato inserito deve essere di tipo DATE.',
             'type_id.exists' => 'Il valore selezionato non è valido',
